@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "757872933264",
+    "project_id": "visual-ease",
+    "storage_bucket": "visual-ease.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:757872933264:android:6e0dd30b963043789b5b15",
+        "android_client_info": {
+          "package_name": "com.example.visual_ease_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "757872933264-r3vs6k966jkad5n615uhpimdn1h2epeb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUdBCI1wOXjZrmwbt85jtAGO649sk50j0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "757872933264-6hp8ji6apq79kruhl0b157h6d4ebob1g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
