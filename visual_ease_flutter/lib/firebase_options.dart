@@ -67,7 +67,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '757872933264',
     projectId: 'visual-ease',
     storageBucket: 'visual-ease.appspot.com',
-    iosClientId: '757872933264-b403ecpl590a7ktfkmfnctegeer0kmii.apps.googleusercontent.com',
+    iosClientId:
+        '757872933264-b403ecpl590a7ktfkmfnctegeer0kmii.apps.googleusercontent.com',
     iosBundleId: 'com.example.visualEaseFlutter',
   );
 
@@ -77,7 +78,8 @@ class DefaultFirebaseOptions {
     messagingSenderId: '757872933264',
     projectId: 'visual-ease',
     storageBucket: 'visual-ease.appspot.com',
-    iosClientId: '757872933264-b403ecpl590a7ktfkmfnctegeer0kmii.apps.googleusercontent.com',
+    iosClientId:
+        '757872933264-b403ecpl590a7ktfkmfnctegeer0kmii.apps.googleusercontent.com',
     iosBundleId: 'com.example.visualEaseFlutter',
   );
 }

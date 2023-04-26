@@ -23,6 +23,7 @@ class StorageService with ListenableServiceMixin {
   double get progress => _progress;
 
   Future<String> uploadFile(File file, String path) async {
+    log.i("Uploding file");
     // final filePath = 'chats/${DateTime.now().millisecondsSinceEpoch}';
     final filePath = path;
     final reference = _storage.ref().child(filePath);

@@ -1,36 +1,46 @@
-import 'package:visual_ease_flutter/app/app.bottomsheets.dart';
-import 'package:visual_ease_flutter/app/app.dialogs.dart';
-import 'package:visual_ease_flutter/app/app.locator.dart';
-import 'package:visual_ease_flutter/ui/common/app_strings.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:visual_ease_flutter/services/user_service.dart';
+
+import '../../../app/app.locator.dart';
+import '../../../app/app.logger.dart';
+import '../../../app/app.router.dart';
+import '../../../models/appuser.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final _dialogService = locator<DialogService>();
-  final _bottomSheetService = locator<BottomSheetService>();
+  final log = getLogger('HomeViewModel');
 
-  String get counterLabel => 'Counter is: $_counter';
+  // final _snackBarService = locator<SnackbarService>();
+  final _navigationService = locator<NavigationService>();
+  final _userService = locator<UserService>();
+  AppUser? get user => _userService.user;
 
-  int _counter = 0;
-
-  void incrementCounter() {
-    _counter++;
-    rebuildUi();
+  void onModelRdy() async {
+    setBusy(true);
+    if (user == null) {
+      await _userService.fetchUser();
+    }
+    setBusy(false);
   }
 
-  void showDialog() {
-    _dialogService.showCustomDialog(
-      variant: DialogType.infoAlert,
-      title: 'Stacked Rocks!',
-      description: 'Give stacked $_counter stars on Github',
-    );
+  void openInAppView() {
+    _navigationService.navigateTo(Routes.inAppView);
   }
 
-  void showBottomSheet() {
-    _bottomSheetService.showCustomSheet(
-      variant: BottomSheetType.notice,
-      title: ksHomeBottomSheetTitle,
-      description: ksHomeBottomSheetDescription,
-    );
+  // void openHardwareView() {
+  //   _navigationService.navigateTo(Routes.hardwareView);
+  // }
+
+  void openFaceTrainView() {
+    _navigationService.navigateTo(Routes.faceRecView);
+  }
+
+  void openFaceTestView() {
+    // _navigationService.navigateTo(Routes.faceTest);
+  }
+
+  void logout() {
+    _userService.logout();
+    _navigationService.replaceWithLoginView();
   }
 }

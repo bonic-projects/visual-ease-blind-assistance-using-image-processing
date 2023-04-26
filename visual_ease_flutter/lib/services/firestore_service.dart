@@ -17,7 +17,7 @@ class FirestoreService {
     log.i('user:$user');
     try {
       final userDocument = _usersCollection.doc(user.id);
-      await userDocument.set(user.toJson(keyword));
+      await userDocument.set(user.toJson(keyword), SetOptions(merge: true));
       log.v('UserCreated at ${userDocument.path}');
       return true;
     } catch (error) {
@@ -57,5 +57,23 @@ class FirestoreService {
     return snapshot.docs
         .map((doc) => AppUser.fromMap(doc.data() as Map<String, dynamic>))
         .toList();
+  }
+
+  Future<bool> updateLocation(double lat, double long, String place) async {
+    log.i('Location update');
+    try {
+      final userDocument =
+          _usersCollection.doc(_authenticationService.currentUser!.uid);
+      await userDocument.update({
+        "lat": lat,
+        "long": long,
+        "place": place,
+      });
+      // log.v('UserCreated at ${userDocument.path}');
+      return true;
+    } catch (error) {
+      log.e("Error $error");
+      return false;
+    }
   }
 }

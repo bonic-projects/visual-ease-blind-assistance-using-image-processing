@@ -12,7 +12,7 @@ import '../../../services/user_service.dart';
 class LoginViewModel extends FormViewModel {
   final log = getLogger('LoginViewModel');
   final _authenticationService = locator<FirebaseAuthenticationService>();
-  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
+  final _bottomSheetService = locator<BottomSheetService>();
   final _userService = locator<UserService>();
   final _navigationService = locator<NavigationService>();
 
@@ -31,7 +31,7 @@ class LoginViewModel extends FormViewModel {
     final result = await _authenticationService.signInWithGoogle();
     log.i(result.errorMessage);
     if (result.user != null) {
-      AppUser? _user = await _userService.fetchUser();
+      AppUser? _user = null; //await _userService.fetchUser();
       if (_user == null) {
         String? error = await _userService.createUpdateUser(
           AppUser(

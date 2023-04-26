@@ -18,12 +18,12 @@ class AppUser {
   });
 
   AppUser.fromMap(Map<String, dynamic> data)
-      : id = data['id'],
-        fullName = data['fullName'],
-        photoUrl = data['photoUrl'],
-        imgString = data['imgString'],
-        email = data['email'],
-        userRole = data['userRole'] ?? "",
+      : id = data['id'] ?? "",
+        fullName = data['fullName'] ?? "nil",
+        photoUrl = data['photoUrl'] ?? "nil",
+        imgString = data['imgString'] ?? "nil",
+        email = data['email'] ?? "nil",
+        userRole = data['userRole'] ?? "blind",
         regTime =
             data['regTime'] != null ? data['regTime'].toDate() : DateTime.now();
 

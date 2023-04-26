@@ -10,10 +10,16 @@ import 'package:stacked_firebase_auth/src/firebase_authentication_service.dart';
 import 'package:stacked_services/src/bottom_sheet/bottom_sheet_service.dart';
 import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
+import 'package:stacked_services/src/snackbar/snackbar_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../services/camera_service.dart';
 import '../services/firestore_service.dart';
+import '../services/imageprocessing_service.dart';
+import '../services/location_service.dart';
+import '../services/regula_service.dart';
 import '../services/storage_service.dart';
+import '../services/tts_service.dart';
 import '../services/user_service.dart';
 
 final locator = StackedLocator.instance;
@@ -27,6 +33,7 @@ Future<void> setupLocator({
       environment: environment, environmentFilter: environmentFilter);
 
 // Register dependencies
+  locator.registerLazySingleton(() => SnackbarService());
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => DialogService());
   locator.registerLazySingleton(() => NavigationService());
@@ -34,4 +41,9 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => FirestoreService());
   locator.registerLazySingleton(() => UserService());
   locator.registerLazySingleton(() => StorageService());
+  locator.registerLazySingleton(() => TTSService());
+  locator.registerLazySingleton(() => ImageProcessingService());
+  locator.registerLazySingleton(() => RegulaService());
+  locator.registerLazySingleton(() => LocationService());
+  locator.registerLazySingleton(() => CameraService());
 }
