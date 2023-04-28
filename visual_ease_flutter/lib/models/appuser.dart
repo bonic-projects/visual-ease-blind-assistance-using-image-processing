@@ -5,6 +5,9 @@ class AppUser {
   final String? imgString;
   final String email;
   final String userRole;
+  final double latitude;
+  final double longitude;
+  final String place;
   final DateTime regTime;
 
   AppUser({
@@ -14,6 +17,9 @@ class AppUser {
     this.imgString,
     required this.email,
     required this.userRole,
+    required this.latitude,
+    required this.longitude,
+    required this.place,
     required this.regTime,
   });
 
@@ -24,6 +30,9 @@ class AppUser {
         imgString = data['imgString'] ?? "nil",
         email = data['email'] ?? "nil",
         userRole = data['userRole'] ?? "blind",
+        latitude = data['lat'] ?? 0.0,
+        longitude = data['long'] ?? 0.0,
+        place = data['place'] ?? "",
         regTime =
             data['regTime'] != null ? data['regTime'].toDate() : DateTime.now();
 
@@ -35,6 +44,9 @@ class AppUser {
       'keyword': keyword,
       'email': email,
       'userRole': userRole,
+      'lat': latitude,
+      'long': longitude,
+      'place': place,
       'regTime': regTime,
     };
     if (imgString != null) map['imgString'] = imgString!;
@@ -48,6 +60,9 @@ class AppUser {
     String? imgString,
     String? email,
     String? userRole,
+    double? latitude,
+    double? longitude,
+    String? place,
     DateTime? regTime,
   }) {
     return AppUser(
@@ -57,6 +72,9 @@ class AppUser {
       imgString: imgString ?? this.imgString,
       email: email ?? this.email,
       userRole: userRole ?? this.userRole,
+      latitude: latitude ?? this.latitude,
+      longitude: longitude ?? this.longitude,
+      place: place ?? this.place,
       regTime: regTime ?? this.regTime,
     );
   }

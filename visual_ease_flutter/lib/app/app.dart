@@ -18,6 +18,8 @@ import '../ui/views/inapp/inapp_view.dart';
 import '../ui/views/login/login_view.dart';
 import 'package:visual_ease_flutter/services/location_service.dart';
 import 'package:visual_ease_flutter/services/camera_service.dart';
+import 'package:visual_ease_flutter/ui/bottom_sheets/success/success_sheet.dart';
+import 'package:visual_ease_flutter/ui/views/map/map_view.dart';
 // @stacked-import
 
 @StackedApp(
@@ -27,7 +29,8 @@ import 'package:visual_ease_flutter/services/camera_service.dart';
     MaterialRoute(page: LoginView),
     MaterialRoute(page: InAppView),
     MaterialRoute(page: FaceRecView),
-    // @stacked-route
+    MaterialRoute(page: MapView),
+// @stacked-route
   ],
   dependencies: [
     LazySingleton(classType: SnackbarService),
@@ -48,6 +51,7 @@ import 'package:visual_ease_flutter/services/camera_service.dart';
   bottomsheets: [
     StackedBottomsheet(classType: NoticeSheet),
     StackedBottomsheet(classType: AlertSheet),
+    StackedBottomsheet(classType: SuccessSheet),
 // @stacked-bottom-sheet
   ],
   dialogs: [

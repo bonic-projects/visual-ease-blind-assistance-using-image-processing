@@ -76,4 +76,32 @@ class FirestoreService {
       return false;
     }
   }
+
+  Future<bool> updateBystander(String uid) async {
+    log.i('Bystander update');
+    try {
+      final userDocument =
+          _usersCollection.doc(_authenticationService.currentUser!.uid);
+      await userDocument.update({
+        "bystanders": FieldValue.arrayUnion([uid])
+      });
+      // log.v('UserCreated at ${userDocument.path}');
+      return true;
+    } catch (error) {
+      log.e("Error $error");
+      return false;
+    }
+  }
+
+  Future<List<AppUser>> getUsersWithBystander() async {
+    QuerySnapshot querySnapshot = await _usersCollection
+        .where('bystanders',
+            arrayContains: _authenticationService.currentUser!.uid)
+        .get();
+
+    return querySnapshot.docs
+        .map((snapshot) =>
+            AppUser.fromMap(snapshot.data() as Map<String, dynamic>))
+        .toList();
+  }
 }

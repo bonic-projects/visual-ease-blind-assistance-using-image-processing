@@ -139,7 +139,7 @@ class InAppViewModel extends BaseViewModel {
   Future processFace() async {
     _ttsService.speak("Identifying person");
     setBusy(true);
-    String? person = await _ragulaService.checkMatch(_imageFile!.path);
+    String? person = await _ragulaService.checkMatch(_image!.path);
     setBusy(false);
     if (person != null) {
       _labels.clear();

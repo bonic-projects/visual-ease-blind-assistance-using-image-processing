@@ -35,13 +35,15 @@ class LoginViewModel extends FormViewModel {
       if (_user == null) {
         String? error = await _userService.createUpdateUser(
           AppUser(
-            id: result.user!.uid,
-            fullName: result.user!.displayName ?? "nil",
-            photoUrl: result.user!.photoURL ?? "nil",
-            regTime: DateTime.now(),
-            email: result.user!.email!,
-            userRole: _role ?? 'blind',
-          ),
+              id: result.user!.uid,
+              fullName: result.user!.displayName ?? "nil",
+              photoUrl: result.user!.photoURL ?? "nil",
+              regTime: DateTime.now(),
+              email: result.user!.email!,
+              userRole: _role ?? 'blind',
+              latitude: 0.0,
+              longitude: 0.0,
+              place: ""),
         );
         if (error == null) {
           setBusy(false);

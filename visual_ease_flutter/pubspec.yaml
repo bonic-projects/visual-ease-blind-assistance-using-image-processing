@@ -25,6 +25,8 @@ dependencies:
   permission_handler: ^10.2.0
   camera: ^0.10.4
   image: ^4.0.15
+  google_maps_flutter: ^2.2.5
+
 
   # ML
   google_mlkit_image_labeling: ^0.5.0
