@@ -5,16 +5,20 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i8;
+import 'package:flutter/material.dart' as _i10;
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i10;
-import 'package:visual_ease_flutter/models/appuser.dart' as _i9;
-import 'package:visual_ease_flutter/ui/views/face/facerec_view.dart' as _i6;
+import 'package:stacked_services/stacked_services.dart' as _i12;
+import 'package:visual_ease_flutter/models/appuser.dart' as _i11;
+import 'package:visual_ease_flutter/ui/views/face/facerec_view.dart' as _i8;
 import 'package:visual_ease_flutter/ui/views/home/home_view.dart' as _i2;
-import 'package:visual_ease_flutter/ui/views/inapp/inapp_view.dart' as _i5;
-import 'package:visual_ease_flutter/ui/views/login/login_view.dart' as _i4;
-import 'package:visual_ease_flutter/ui/views/map/map_view.dart' as _i7;
+import 'package:visual_ease_flutter/ui/views/inapp/inapp_view.dart' as _i7;
+import 'package:visual_ease_flutter/ui/views/login/login_view.dart' as _i5;
+import 'package:visual_ease_flutter/ui/views/login_register/login_register_view.dart'
+    as _i4;
+import 'package:visual_ease_flutter/ui/views/map/map_view.dart' as _i9;
+import 'package:visual_ease_flutter/ui/views/register/register_view.dart'
+    as _i6;
 import 'package:visual_ease_flutter/ui/views/startup/startup_view.dart' as _i3;
 
 class Routes {
@@ -22,7 +26,11 @@ class Routes {
 
   static const startupView = '/startup-view';
 
+  static const loginRegisterView = '/login-register-view';
+
   static const loginView = '/login-view';
+
+  static const registerView = '/register-view';
 
   static const inAppView = '/in-app-view';
 
@@ -33,7 +41,9 @@ class Routes {
   static const all = <String>{
     homeView,
     startupView,
+    loginRegisterView,
     loginView,
+    registerView,
     inAppView,
     faceRecView,
     mapView,
@@ -51,58 +61,84 @@ class StackedRouter extends _i1.RouterBase {
       page: _i3.StartupView,
     ),
     _i1.RouteDef(
+      Routes.loginRegisterView,
+      page: _i4.LoginRegisterView,
+    ),
+    _i1.RouteDef(
       Routes.loginView,
-      page: _i4.LoginView,
+      page: _i5.LoginView,
+    ),
+    _i1.RouteDef(
+      Routes.registerView,
+      page: _i6.RegisterView,
     ),
     _i1.RouteDef(
       Routes.inAppView,
-      page: _i5.InAppView,
+      page: _i7.InAppView,
     ),
     _i1.RouteDef(
       Routes.faceRecView,
-      page: _i6.FaceRecView,
+      page: _i8.FaceRecView,
     ),
     _i1.RouteDef(
       Routes.mapView,
-      page: _i7.MapView,
+      page: _i9.MapView,
     ),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
     _i2.HomeView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i2.HomeView(),
         settings: data,
       );
     },
     _i3.StartupView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
+      return _i10.MaterialPageRoute<dynamic>(
         builder: (context) => const _i3.StartupView(),
         settings: data,
       );
     },
-    _i4.LoginView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i4.LoginView(),
+    _i4.LoginRegisterView: (data) {
+      return _i10.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i4.LoginRegisterView(),
         settings: data,
       );
     },
-    _i5.InAppView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i5.InAppView(),
+    _i5.LoginView: (data) {
+      final args = data.getArgs<LoginViewArguments>(
+        orElse: () => const LoginViewArguments(),
+      );
+      return _i10.MaterialPageRoute<dynamic>(
+        builder: (context) => _i5.LoginView(key: args.key),
         settings: data,
       );
     },
-    _i6.FaceRecView: (data) {
-      return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => const _i6.FaceRecView(),
+    _i6.RegisterView: (data) {
+      final args = data.getArgs<RegisterViewArguments>(
+        orElse: () => const RegisterViewArguments(),
+      );
+      return _i10.MaterialPageRoute<dynamic>(
+        builder: (context) => _i6.RegisterView(key: args.key),
         settings: data,
       );
     },
-    _i7.MapView: (data) {
+    _i7.InAppView: (data) {
+      return _i10.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i7.InAppView(),
+        settings: data,
+      );
+    },
+    _i8.FaceRecView: (data) {
+      return _i10.MaterialPageRoute<dynamic>(
+        builder: (context) => const _i8.FaceRecView(),
+        settings: data,
+      );
+    },
+    _i9.MapView: (data) {
       final args = data.getArgs<MapViewArguments>(nullOk: false);
-      return _i8.MaterialPageRoute<dynamic>(
-        builder: (context) => _i7.MapView(key: args.key, user: args.user),
+      return _i10.MaterialPageRoute<dynamic>(
+        builder: (context) => _i9.MapView(key: args.key, user: args.user),
         settings: data,
       );
     },
@@ -114,15 +150,59 @@ class StackedRouter extends _i1.RouterBase {
   Map<Type, _i1.StackedRouteFactory> get pagesMap => _pagesMap;
 }
 
+class LoginViewArguments {
+  const LoginViewArguments({this.key});
+
+  final _i10.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant LoginViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+class RegisterViewArguments {
+  const RegisterViewArguments({this.key});
+
+  final _i10.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant RegisterViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
 class MapViewArguments {
   const MapViewArguments({
     this.key,
     required this.user,
   });
 
-  final _i8.Key? key;
+  final _i10.Key? key;
 
-  final _i9.AppUser user;
+  final _i11.AppUser user;
 
   @override
   String toString() {
@@ -141,7 +221,7 @@ class MapViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i10.NavigationService {
+extension NavigatorStateExtension on _i12.NavigationService {
   Future<dynamic> navigateToHomeView([
     int? routerId,
     bool preventDuplicates = true,
@@ -170,14 +250,46 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> navigateToLoginView([
+  Future<dynamic> navigateToLoginRegisterView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
+    return navigateTo<dynamic>(Routes.loginRegisterView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToLoginView({
+    _i10.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return navigateTo<dynamic>(Routes.loginView,
+        arguments: LoginViewArguments(key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> navigateToRegisterView({
+    _i10.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return navigateTo<dynamic>(Routes.registerView,
+        arguments: RegisterViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -213,8 +325,8 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> navigateToMapView({
-    _i8.Key? key,
-    required _i9.AppUser user,
+    _i10.Key? key,
+    required _i11.AppUser user,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -257,14 +369,46 @@ extension NavigatorStateExtension on _i10.NavigationService {
         transition: transition);
   }
 
-  Future<dynamic> replaceWithLoginView([
+  Future<dynamic> replaceWithLoginRegisterView([
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
     Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
         transition,
   ]) async {
+    return replaceWith<dynamic>(Routes.loginRegisterView,
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithLoginView({
+    _i10.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
     return replaceWith<dynamic>(Routes.loginView,
+        arguments: LoginViewArguments(key: key),
+        id: routerId,
+        preventDuplicates: preventDuplicates,
+        parameters: parameters,
+        transition: transition);
+  }
+
+  Future<dynamic> replaceWithRegisterView({
+    _i10.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+        transition,
+  }) async {
+    return replaceWith<dynamic>(Routes.registerView,
+        arguments: RegisterViewArguments(key: key),
         id: routerId,
         preventDuplicates: preventDuplicates,
         parameters: parameters,
@@ -300,8 +444,8 @@ extension NavigatorStateExtension on _i10.NavigationService {
   }
 
   Future<dynamic> replaceWithMapView({
-    _i8.Key? key,
-    required _i9.AppUser user,
+    _i10.Key? key,
+    required _i11.AppUser user,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,

@@ -2,6 +2,8 @@ import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:visual_ease_flutter/ui/bottom_sheets/notice/notice_sheet.dart';
 import 'package:visual_ease_flutter/ui/dialogs/info_alert/info_alert_dialog.dart';
 import 'package:visual_ease_flutter/ui/views/home/home_view.dart';
+import 'package:visual_ease_flutter/ui/views/login_register/login_register_view.dart';
+import 'package:visual_ease_flutter/ui/views/register/register_view.dart';
 import 'package:visual_ease_flutter/ui/views/startup/startup_view.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -26,7 +28,9 @@ import 'package:visual_ease_flutter/ui/views/map/map_view.dart';
   routes: [
     MaterialRoute(page: HomeView),
     MaterialRoute(page: StartupView),
+    MaterialRoute(page: LoginRegisterView),
     MaterialRoute(page: LoginView),
+    MaterialRoute(page: RegisterView),
     MaterialRoute(page: InAppView),
     MaterialRoute(page: FaceRecView),
     MaterialRoute(page: MapView),

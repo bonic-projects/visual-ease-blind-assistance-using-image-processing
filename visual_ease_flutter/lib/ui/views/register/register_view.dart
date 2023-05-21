@@ -3,10 +3,27 @@ import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
 import '../../../app/constants/validators.dart';
 import '../widgets/customButton.dart';
-import 'login_view.form.dart';
-import 'login_viewmodel.dart';
+import 'register_viewmodel.dart';
+import 'register_view.form.dart';
 
 @FormView(fields: [
+  FormTextField(
+    name: 'name',
+    validator: FormValidators.validateText,
+  ),
+  FormDropdownField(
+    name: 'userRole',
+    items: [
+      StaticDropdownItem(
+        title: 'Blind',
+        value: 'blind',
+      ),
+      StaticDropdownItem(
+        title: 'Bystander',
+        value: 'bystander',
+      ),
+    ],
+  ),
   FormTextField(
     name: 'email',
     validator: FormValidators.validateEmail,
@@ -16,19 +33,19 @@ import 'login_viewmodel.dart';
     validator: FormValidators.validatePassword,
   ),
 ])
-class LoginView extends StackedView<LoginViewModel> with $LoginView {
-  LoginView({Key? key}) : super(key: key);
+class RegisterView extends StackedView<RegisterViewModel> with $RegisterView {
+  RegisterView({Key? key}) : super(key: key);
 
   @override
   Widget builder(
     BuildContext context,
-    LoginViewModel viewModel,
+    RegisterViewModel viewModel,
     Widget? child,
   ) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: AppBar(
-        title: const Text('Login'),
+        title: const Text('Register'),
       ),
       body: SingleChildScrollView(
         child: Center(
@@ -42,13 +59,13 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                   height: 150,
                 ),
               ),
-              const Text(
-                "Login",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
+              // const Text(
+              //   "Register",
+              //   style: TextStyle(
+              //     fontSize: 32,
+              //     fontWeight: FontWeight.w900,
+              //   ),
+              // ),
               Form(
                 // key: F,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -63,6 +80,22 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                         ),
                         child: TextField(
                           autofocus: true,
+                          decoration: InputDecoration(
+                            labelText: 'Full name',
+                            errorText: viewModel.nameValidationMessage,
+                            errorMaxLines: 2,
+                          ),
+                          controller: nameController,
+                          keyboardType: TextInputType.name,
+                          focusNode: nameFocusNode,
+                        ),
+                      ),
+                      const SizedBox(height: 30),
+                      ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxWidth: 350,
+                        ),
+                        child: TextField(
                           decoration: InputDecoration(
                             labelText: 'Email',
                             errorText: viewModel.emailValidationMessage,
@@ -91,9 +124,34 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                         ),
                       ),
                       const SizedBox(height: 20),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          const Text('Select user role:'),
+                          const SizedBox(width: 15),
+                          DropdownButton<String>(
+                            key: const ValueKey('dropdownField'),
+                            value: viewModel.userRoleValue,
+                            onChanged: (value) {
+                              viewModel.setUserRole(value!);
+                            },
+                            items: UserRoleValueToTitleMap.keys
+                                .map(
+                                  (value) => DropdownMenuItem<String>(
+                                    key: ValueKey('$value key'),
+                                    value: value,
+                                    child:
+                                        Text(UserRoleValueToTitleMap[value]!),
+                                  ),
+                                )
+                                .toList(),
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 30),
                       CustomButton(
-                        onTap: viewModel.authenticateUser,
-                        text: 'Login',
+                        onTap: viewModel.registerUser,
+                        text: 'Register',
                         isLoading: viewModel.isBusy,
                       )
                     ],
@@ -108,19 +166,19 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
   }
 
   @override
-  LoginViewModel viewModelBuilder(
+  RegisterViewModel viewModelBuilder(
     BuildContext context,
   ) =>
-      LoginViewModel();
+      RegisterViewModel();
 
   @override
-  void onViewModelReady(LoginViewModel viewModel) {
+  void onViewModelReady(RegisterViewModel viewModel) {
     syncFormWithViewModel(viewModel);
     viewModel.onModelReady();
   }
 
   @override
-  void onDispose(LoginViewModel viewModel) {
+  void onDispose(RegisterViewModel viewModel) {
     super.onDispose(viewModel);
     disposeForm();
   }

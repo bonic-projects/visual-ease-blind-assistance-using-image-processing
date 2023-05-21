@@ -20,7 +20,7 @@ class StartupViewModel extends BaseViewModel {
       _navigationService.replaceWithHomeView();
     } else {
       await Future.delayed(const Duration(seconds: 1));
-      _navigationService.replaceWithLoginView();
+      _navigationService.replaceWithLoginRegisterView();
     }
     _regulaService.initPlatformState();
   }

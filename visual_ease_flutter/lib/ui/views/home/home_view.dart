@@ -24,10 +24,10 @@ class HomeView extends StatelessWidget {
                   padding: const EdgeInsets.only(right: 8.0),
                   child: CircleAvatar(
                     radius: 18,
-                    backgroundImage: model.user!.photoUrl != "nil"
+                    backgroundImage: model.user!.photoUrl != ""
                         ? NetworkImage(model.user!.photoUrl)
                         : null,
-                    child: model.user!.photoUrl == "nil"
+                    child: model.user!.photoUrl == ""
                         ? Text(model.user!.fullName[0])
                         : null,
                   ),
@@ -190,7 +190,24 @@ class OptionBlind extends StatelessWidget {
                       right: 0,
                       child: Padding(
                         padding: const EdgeInsets.only(bottom: 24.0),
-                        child: Image.network(link),
+                        child: link == ""
+                            ? Padding(
+                                padding: const EdgeInsets.all(20.0),
+                                child: CircleAvatar(
+                                  child: Center(
+                                      child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      name[0],
+                                      style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 24,
+                                      ),
+                                    ),
+                                  )),
+                                ),
+                              )
+                            : Image.network(link),
                       )),
                   Positioned(
                     bottom: 0,

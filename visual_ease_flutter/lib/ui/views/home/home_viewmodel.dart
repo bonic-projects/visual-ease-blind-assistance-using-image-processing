@@ -58,7 +58,7 @@ class HomeViewModel extends BaseViewModel {
 
   void logout() {
     _userService.logout();
-    _navigationService.replaceWithLoginView();
+    _navigationService.replaceWithLoginRegisterView();
   }
 
   void showBottomSheetUserSearch() async {

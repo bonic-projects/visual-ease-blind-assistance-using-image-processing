@@ -1,78 +1,47 @@
 import 'package:stacked/stacked.dart';
 import 'package:stacked_firebase_auth/stacked_firebase_auth.dart';
 import 'package:stacked_services/stacked_services.dart';
-import 'package:visual_ease_flutter/app/app.router.dart';
-
 import '../../../app/app.bottomsheets.dart';
 import '../../../app/app.locator.dart';
 import '../../../app/app.logger.dart';
-import '../../../models/appuser.dart';
+import '../../../app/app.router.dart';
 import '../../../services/user_service.dart';
+import 'login_view.form.dart';
 
 class LoginViewModel extends FormViewModel {
   final log = getLogger('LoginViewModel');
-  final _authenticationService = locator<FirebaseAuthenticationService>();
-  final _bottomSheetService = locator<BottomSheetService>();
-  final _userService = locator<UserService>();
+
+  final FirebaseAuthenticationService? _firebaseAuthenticationService =
+      locator<FirebaseAuthenticationService>();
   final _navigationService = locator<NavigationService>();
+  final BottomSheetService _bottomSheetService = locator<BottomSheetService>();
+  final _userService = locator<UserService>();
 
-  List<String> userTypes = ['blind', 'bystander'];
+  void onModelReady() {}
 
-  void login() async {
-    if (_role == null) {
-      _bottomSheetService.showCustomSheet(
-        variant: BottomSheetType.alert,
-        title: "Not selected",
-        description: "Select user role",
+  void authenticateUser() async {
+    if (isFormValid && emailValue != null && passwordValue != null) {
+      setBusy(true);
+      log.i("email and pass valid");
+      log.i(emailValue!);
+      log.i(passwordValue!);
+      FirebaseAuthenticationResult result =
+          await _firebaseAuthenticationService!.loginWithEmail(
+        email: emailValue!,
+        password: passwordValue!,
       );
-      return null;
-    }
-    setBusy(true);
-    final result = await _authenticationService.signInWithGoogle();
-    log.i(result.errorMessage);
-    if (result.user != null) {
-      AppUser? _user = null; //await _userService.fetchUser();
-      if (_user == null) {
-        String? error = await _userService.createUpdateUser(
-          AppUser(
-              id: result.user!.uid,
-              fullName: result.user!.displayName ?? "nil",
-              photoUrl: result.user!.photoURL ?? "nil",
-              regTime: DateTime.now(),
-              email: result.user!.email!,
-              userRole: _role ?? 'blind',
-              latitude: 0.0,
-              longitude: 0.0,
-              place: ""),
-        );
-        if (error == null) {
-          setBusy(false);
-          _navigationService.replaceWithHomeView();
-        } else {
-          log.i("Firebase error");
-          _bottomSheetService.showCustomSheet(
-            variant: BottomSheetType.alert,
-            title: "Upload Error",
-            description: error,
-          );
-        }
+      if (result.user != null) {
+        _userService.fetchUser();
+        _navigationService.pushNamedAndRemoveUntil(Routes.homeView);
       } else {
-        setBusy(false);
-        _navigationService.replaceWithHomeView();
+        log.i("Error: ${result.errorMessage}");
+        _bottomSheetService.showCustomSheet(
+          variant: BottomSheetType.alert,
+          title: "Error",
+          description: result.errorMessage ?? "Enter valid credentials",
+        );
       }
-    } else {
-      log.i("Error: ${result.errorMessage}");
-      setBusy(false);
-      _bottomSheetService.showCustomSheet(
-        variant: BottomSheetType.alert,
-        title: "Error",
-        description: result.errorMessage ?? "Enter valid credentials",
-      );
     }
-  }
-
-  String? _role;
-  void setRole(String? value) {
-    _role = value;
+    setBusy(false);
   }
 }

@@ -63,10 +63,10 @@ class NoticeSheet extends StackedView<NoticeSheetModel> {
                                       title: Text(user.fullName),
                                       subtitle: Text(user.email),
                                       leading: CircleAvatar(
-                                        backgroundImage: user.photoUrl != "nil"
+                                        backgroundImage: user.photoUrl != ""
                                             ? NetworkImage(user.photoUrl)
                                             : null,
-                                        child: user.photoUrl == "nil"
+                                        child: user.photoUrl == ""
                                             ? Text(user.fullName[0])
                                             : null,
                                       ),

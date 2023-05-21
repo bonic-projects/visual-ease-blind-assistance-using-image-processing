@@ -50,6 +50,7 @@ class InAppViewModel extends BaseViewModel {
     setBusy(true);
     await _camService.initCam();
     setBusy(false);
+    setTimer();
     _locService.initialise();
   }
 
@@ -58,12 +59,26 @@ class InAppViewModel extends BaseViewModel {
     getLabel();
   }
 
+  late Timer _timer;
+  void setTimer() {
+    _timer = Timer.periodic(const Duration(seconds: 6), (Timer timer) async {
+      log.i("Timer got!");
+      if (_image == null && !isBusy) {
+        captureImageAndLabel();
+      }
+      if (_image != null && !isBusy) {
+        getLabel();
+      }
+    });
+  }
+
   @override
   void dispose() {
     // call your function here
     _locService.dispose();
     _camService.dispose();
     _subscription.cancel();
+    _timer.cancel();
     super.dispose();
   }
 

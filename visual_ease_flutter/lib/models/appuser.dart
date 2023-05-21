@@ -2,7 +2,6 @@ class AppUser {
   final String id;
   final String fullName;
   final String photoUrl;
-  final String? imgString;
   final String email;
   final String userRole;
   final double latitude;
@@ -14,7 +13,6 @@ class AppUser {
     required this.id,
     required this.fullName,
     required this.photoUrl,
-    this.imgString,
     required this.email,
     required this.userRole,
     required this.latitude,
@@ -27,7 +25,6 @@ class AppUser {
       : id = data['id'] ?? "",
         fullName = data['fullName'] ?? "nil",
         photoUrl = data['photoUrl'] ?? "nil",
-        imgString = data['imgString'] ?? "nil",
         email = data['email'] ?? "nil",
         userRole = data['userRole'] ?? "blind",
         latitude = data['lat'] ?? 0.0,
@@ -49,7 +46,7 @@ class AppUser {
       'place': place,
       'regTime': regTime,
     };
-    if (imgString != null) map['imgString'] = imgString!;
+    // if (imgString != null) map['imgString'] = imgString!;
     return map;
   }
 
@@ -57,7 +54,6 @@ class AppUser {
     String? id,
     String? fullName,
     String? photoUrl,
-    String? imgString,
     String? email,
     String? userRole,
     double? latitude,
@@ -69,7 +65,6 @@ class AppUser {
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
       photoUrl: photoUrl ?? this.photoUrl,
-      imgString: imgString ?? this.imgString,
       email: email ?? this.email,
       userRole: userRole ?? this.userRole,
       latitude: latitude ?? this.latitude,
