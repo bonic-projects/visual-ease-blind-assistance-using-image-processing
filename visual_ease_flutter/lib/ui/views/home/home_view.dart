@@ -44,8 +44,8 @@ class HomeView extends StatelessWidget {
                   ? FloatingActionButton.extended(
                       backgroundColor: kcPrimaryColor,
                       onPressed: model.showBottomSheetUserSearch,
-                      label: Row(
-                        children: const [
+                      label: const Row(
+                        children: [
                           Text('Add bystander'),
                           Icon(Icons.add_circle),
                         ],
@@ -63,18 +63,10 @@ class HomeView extends StatelessWidget {
                               name: 'In App',
                               onTap: model.openInAppView,
                               file: 'assets/lottie/inapp.json'),
-                          // Option(
-                          //     name: 'Hardware',
-                          //     onTap: model.openHardwareView,
-                          //     file: 'assets/lottie/hardware.json'),
                           Option(
                               name: 'Face Train',
                               onTap: model.openFaceTrainView,
                               file: 'assets/lottie/face.json')
-                          // Option(
-                          //     name: 'FaceTest',
-                          //     onTap: model.openFaceTestView,
-                          //     file: 'assets/lottie/face.json'),
                         ],
                       )
                     : GridView.count(

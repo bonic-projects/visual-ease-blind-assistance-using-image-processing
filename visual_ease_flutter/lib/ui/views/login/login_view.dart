@@ -42,13 +42,13 @@ class LoginView extends StackedView<LoginViewModel> with $LoginView {
                   height: 150,
                 ),
               ),
-              const Text(
-                "Login",
-                style: TextStyle(
-                  fontSize: 32,
-                  fontWeight: FontWeight.w900,
-                ),
-              ),
+              // const Text(
+              //   "Login",
+              //   style: TextStyle(
+              //     fontSize: 32,
+              //     fontWeight: FontWeight.w900,
+              //   ),
+              // ),
               Form(
                 // key: F,
                 autovalidateMode: AutovalidateMode.onUserInteraction,
